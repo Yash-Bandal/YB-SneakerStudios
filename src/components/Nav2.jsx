@@ -8,7 +8,7 @@ const Nav = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        // remove absolute and add top-0 to make bg visible and not transparent
+        // remove absolute and add top-0, shadow-md to make bg visible and not transparent
         <header className="padding-x py-6 absolute z-50 w-full ">
             <nav className="flex items-center justify-between max-container">
 
