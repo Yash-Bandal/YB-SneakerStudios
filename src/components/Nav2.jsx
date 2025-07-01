@@ -11,6 +11,8 @@ const Nav = () => {
         // remove absolute and add top-0 to make bg visible and not transparent
         <header className="padding-x py-6 absolute z-50 w-full ">
             <nav className="flex items-center justify-between max-container">
+
+                {/* Comment this if headerLogo not using..in another app */}
                 <a href="#home">
                     <img src={headerLogo} alt="Logo" width={130} height={29} />
                 </a>
@@ -31,7 +33,8 @@ const Nav = () => {
                 </ul>
 
                 {/* Hamburger for Mobile */}
-                <div className="lg:hidden">
+                {/* <div className="lg:hidden"> */}
+                <div className="hidden max-lg:block absolute right-6 top-6">
                     <button onClick={() => setMenuOpen(true)}>
                         <img src={hamburger} alt="menu" width={25} height={25} />
                     </button>
