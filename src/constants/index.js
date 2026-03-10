@@ -24,10 +24,17 @@ export const shoes = [
     },
 ];
 
+// export const statistics = [
+//     { value: '1k+', label: 'Brands' },
+//     { value: '500+', label: 'Shops' },
+//     { value: '250k+', label: 'Customers' },
+// ];
+
+
 export const statistics = [
-    { value: '1k+', label: 'Brands' },
-    { value: '500+', label: 'Shops' },
-    { value: '250k+', label: 'Customers' },
+    { value: 1, label: "Brands", suffix: "k+" },
+    { value: 500, label: "Shops", suffix: "+" },
+    { value: 250, label: "Customers", suffix: "k+" },
 ];
 
 export const products = [

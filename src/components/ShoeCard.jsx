@@ -1,14 +1,13 @@
-const ShoeCard = ({imgURL, changeBigShoeImage, bigShoeImg}) => {
-    
+const ShoeCard = ({ imgURL, isActive, onSelect }) => {
     const handleClick = () => {
-        if(bigShoeImg !== imgURL.bigShoe){
-            changeBigShoeImage(imgURL.bigShoe)
-        };
-    }
+        if (!isActive) {
+            onSelect();
+        }
+    };
    
     return (
         <div className={`border-2 rounded-xl
-        ${bigShoeImg === imgURL.bigShoe //pass the border..silly mistake done forget .bigshoe
+        ${isActive
                 ? 'border-coral-red'
                 : 'border-transparent'
             } cursor-pointer max-sm:flex-1

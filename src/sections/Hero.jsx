@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { arrowRight } from "../assets/icons";
 import {Button} from "../components";
+import CountUp from "../components/CountUp";
 import {shoes,statistics } from "../constants";
 import {ShoeCard} from "../components";
 
@@ -11,8 +12,20 @@ import {bigShoe1} from "../assets/images";
 
 
 const Hero = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const totalShoes = shoes.length;
+  const bigShoeImg = shoes[activeIndex]?.bigShoe || bigShoe1;
 
-  const [bigShoeImg, setBigShoeImg] = useState(bigShoe1); //  pass bigshoe1 as default
+  useEffect(() => {
+    if (isPaused || totalShoes <= 1) return;
+
+    const intervalId = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % totalShoes);
+    }, 3500);
+
+    return () => clearInterval(intervalId);
+  }, [isPaused, totalShoes]);
 
   return (
     <section
@@ -34,28 +47,39 @@ const Hero = () => {
         <div className="flex justify-start items-start flex-wrap w-full mt-20 gap-16">
           {statistics.map((stat) => (
             <div key={stat.label}>
-              <p className="text-4xl font-palanquin font-bold">{stat.value}</p>
+              {/* <p className="text-4xl font-palanquin font-bold">{stat.value}</p> */}
+            
+            {/* Counting up numbers */}
+              <p className="text-4xl font-palanquin font-bold">
+                <CountUp end={stat.value} />{stat.suffix}
+              </p>
+              
               <p className="leading-7 font-montserrat text-slate-gray">{stat.label}</p>
             </div>
           ))}
         </div>
       </div>
       {/* <div className="relative flex-1 flex-container justify-center items-center xl:min-h-screen max-xl:py-40 bg-primary bg-hero bg-cover bg-center"> */}
-        <div className="relative flex-1 flex justify-center items-center xl:min-h-screen max-xl:py-40 bg-primary bg-hero bg-center bg-cover ">
+        <div
+          className="relative flex-1 flex justify-center items-center xl:min-h-screen max-xl:py-40 bg-primary bg-hero bg-center bg-cover"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
         <img
+          key={bigShoeImg}
           src={bigShoeImg}
           alt="Shoe Collection"
           width={610}
           height={500}
-          className="object-contain relative z-10"
+          className="object-contain relative z-10 fade-in"
         />
         <div className="flex sm:gap-6 gap-4 absolute -bottom-[5%] sm:left-[10%] max-sm:px-6">
-          {shoes.map((shoe) => (
-            <div key={shoe}>
+          {shoes.map((shoe, index) => (
+            <div key={shoe.bigShoe}>
               <ShoeCard 
                 imgURL={shoe}
-                changeBigShoeImage={(shoe) => setBigShoeImg(shoe)}
-                bigShoeImg={bigShoeImg} //tells which shoe is selected corruntly
+                onSelect={() => setActiveIndex(index)}
+                isActive={index === activeIndex}
               />
             </div>
           ))}
