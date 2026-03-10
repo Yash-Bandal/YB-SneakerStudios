@@ -22,7 +22,7 @@ const Hero = () => {
 
     const intervalId = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % totalShoes);
-    }, 3500);
+    }, 2500);
 
     return () => clearInterval(intervalId);
   }, [isPaused, totalShoes]);
@@ -91,3 +91,4 @@ const Hero = () => {
 }
 
 export default Hero
+
